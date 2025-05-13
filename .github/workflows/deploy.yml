@@ -28,6 +28,56 @@ jobs:
           ssh-private-key: ${{ secrets.DOKKU_SSH_PRIVATE_KEY }}
 
       - name: Add Dokku remote and push
+        id: dokku_deploy
         run: |
           git remote add dokku dokku@s14.michaeloxo.tech:devops-wordpress
           git push --force dokku main 
+
+      - name: Send Slack notification on success
+        if: success() && steps.dokku_deploy.outcome == 'success' 
+        uses: slackapi/slack-github-action@v1.26.0
+        with:
+          payload: |
+            {
+              "text": "✅ App successfully deployed to devops.s14.michaeloxo.tech!",
+              "attachments": [
+                {
+                  "color": "#36a64f", # Green color
+                  "blocks": [
+                    {
+                      "type": "section",
+                      "text": {
+                        "type": "mrkdwn",
+                        "text": "Repo: <${{ github.repositoryUrl }}|${{ github.repository }}>\nBranch: `${{ github.ref_name }}`\nCommit: `${{ github.sha }}`\n<${{ github.event.compare }}|View changes>"
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          webhook-url: ${{ secrets.SLACK_WEBHOOK_URL }}
+
+
+      - name: Send Slack notification on failure
+        if: failure() 
+        uses: slackapi/slack-github-action@v1.26.0 
+        with:
+          payload: |
+            {
+              "text": "❌ App deployment to devops.s14.michaeloxo.tech failed!",
+              "attachments": [
+                {
+                  "color": "#ff0000", # Red color
+                  "blocks": [
+                    {
+                      "type": "section",
+                      "text": {
+                        "type": "mrkdwn",
+                        "text": "Repo: <${{ github.repositoryUrl }}|${{ github.repository }}>\nBranch: `${{ github.ref_name }}`\nCommit: `${{ github.sha }}`\nWorkflow Run: <${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}|View run details>"
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          webhook-url: ${{ secrets.SLACK_WEBHOOK_URL }}
