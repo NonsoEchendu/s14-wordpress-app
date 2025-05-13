@@ -28,4 +28,4 @@ jobs:
       - name: Add Dokku remote and push
         run: |
           git remote add dokku dokku@s14.michaeloxo.tech:devops-wordpress
-          git push dokku main 
+          git push --force dokku main 
