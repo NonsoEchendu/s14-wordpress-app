@@ -39,21 +39,7 @@ jobs:
         with:
           payload: |
             {
-              "text": "✅ App successfully deployed to devops.s14.michaeloxo.tech!",
-              "attachments": [
-                {
-                  "color": "#36a64f", # Green color
-                  "blocks": [
-                    {
-                      "type": "section",
-                      "text": {
-                        "type": "mrkdwn",
-                        "text": "Repo: <${{ github.repositoryUrl }}|${{ github.repository }}>\nBranch: `${{ github.ref_name }}`\nCommit: `${{ github.sha }}`\n<${{ github.event.compare }}|View changes>"
-                      }
-                    }
-                  ]
-                }
-              ]
+              "text": "✅ Deployment Successful\nProject: `${{ github.repository }}`\nBranch: `${{ github.ref_name }}`\nCommit: `${{ github.sha }}` (<${{ github.server_url }}/${{ github.repository }}/commit/${{ github.sha }}|View Commit>)\nTriggered by: `${{ github.actor }}`\nWorkflow Run: <${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}|View Run>"
             }
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
@@ -65,21 +51,7 @@ jobs:
         with:
           payload: |
             {
-              "text": "❌ App deployment to devops.s14.michaeloxo.tech failed!",
-              "attachments": [
-                {
-                  "color": "#ff0000", # Red color
-                  "blocks": [
-                    {
-                      "type": "section",
-                      "text": {
-                        "type": "mrkdwn",
-                        "text": "Repo: <${{ github.repositoryUrl }}|${{ github.repository }}>\nBranch: `${{ github.ref_name }}`\nCommit: `${{ github.sha }}`\nWorkflow Run: <${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}|View run details>"
-                      }
-                    }
-                  ]
-                }
-              ]
+              "text": "❌ Deployment Failed (Automated Rollback Triggered)\nProject: `${{ github.repository }}`\nBranch: `${{ github.ref_name }}`\nCommit: `${{ github.sha }}` (<${{ github.server_url }}/${{ github.repository }}/commit/${{ github.sha }}|View Commit>)\nTriggered by: `${{ github.actor }}`\nWorkflow Run: <${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}|View Run>\nError: See workflow run logs for details."
             }
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
