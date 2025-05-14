@@ -199,7 +199,8 @@ This guide assumes you have an Ubuntu EC2 instance with a domain pointing to its
 
 
 **Monitoring Dashboard Screenshot:**
-![Screenshot 2025-05-13 at 16 26 21 (2)](https://github.com/user-attachments/assets/952eb6f7-1a07-4f7c-975d-4ea46ebb38da)
+![system metrics dashboard](https://github.com/user-attachments/assets/f92cca67-82dd-451f-b767-edbdcc792929)
 
-![Screenshot 2025-05-13 at 16 26 55 (2)](https://github.com/user-attachments/assets/295c3703-84e2-43e1-845a-b1f8c970e689)
+
+![Screenshot 2025-05-13 at 17 33 18 (2)](https://github.com/user-attachments/assets/7f657344-648c-46f3-bd94-dc72fa17e4f4)
 
